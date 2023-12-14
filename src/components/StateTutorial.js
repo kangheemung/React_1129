@@ -1,29 +1,35 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const countReducer = (state, action) => {
-    switch (action.type) {
-        case "INCREMENT":
-            return { count: state.count + 1, showText: state.showText };
-        case "TOGGLE_SHOW_TEXT":
-            return { count: state.count, showText: !state.showText };
-        default:
-            return state;
-    }
-};
+function EffectTutorial() {
+  const [data, setData] = useState('');
+  const [count,setCount] =useState(0);
 
-const ReducerTutorial = () => {
-    const [state, dispatch] = useReducer(countReducer, { count: 0, showText: true });
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/comments')
+      .then((response) => {
+        setData(response.data[0].email);
+        console.log('API WAS CALLED');
+      })
+      .catch((error) => {
+        console.error('An error occurred while fetching data', error);
+      });
+  }, [count]); // Empty dependencies array means this effect will only run once
 
-    return (
-        <div>
-            <h1>{state.count}</h1>
-            <button onClick={() => {
-                dispatch({ type: "INCREMENT" });
-                dispatch({ type: "TOGGLE_SHOW_TEXT" });
-            }}>Click Here</button>
-            {state.showText && <p>This is a text</p>}
-        </div>
-    );
-};
+  return (
+  <div>
+      Hello World 
+      <h1>{data}</h1>
+      <h1>{count}</h1>
+      <button 
+       onClick={()=>{
+          setCount(count + 1);
+       }}
+       >
+       CLick
+   </button>
+  </div>
+  );
+}
 
-export default ReducerTutorial;
+export default EffectTutorial;

@@ -1,5 +1,6 @@
 import React from "react";
 import StateTutorial from './components/StateTutorial';
+import RefTutorial from './components/RefTutorial';
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,6 +10,7 @@ function App() {
       <header className="App-header">
       <div>
         <StateTutorial />
+        <RefTutorial />
       </div>{/* Corrected Component Name */}
         <img src={logo} className="App-logo" alt="logo" />
         <p>
